@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Item Catalogue · Frostreaver</title>
+<meta name="description" content="Over a thousand EverQuest items we've come across on Frostreaver: stats, slots, classes, where they drop, tradeskill uses, vendor value and our verdict on each.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23e9dcc0' stroke='%237a2e1e' stroke-width='2'/%3E%3Cpolygon points='16,4 18.5,14 16,16 13.5,14' fill='%237a2e1e'/%3E%3Cpolygon points='16,28 18,16 16,15 14,16' fill='%232a2118' opacity='.5'/%3E%3C/svg%3E">
+<style>
+  :root{--mono:"JetBrains Mono",ui-monospace,Consolas,monospace;--keep:#3F5D4A;--bazaar:#93701E;--trash:#7A2E1E;--muted:#6b5a45;--item:#2f5a2a}
+  .hero.small{padding:30px 0 6px}
+  .hero.small h1{font-size:clamp(32px,5.5vw,52px)}
+  .cat{margin-top:28px;padding:26px 30px 30px}
+  .tools{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:10px}
+  .tools label{display:flex;flex-direction:column;gap:6px;font:600 11px/1 Cinzel,serif;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);min-width:0}
+  .tools input,.tools select{font:16px "EB Garamond",Georgia,serif;color:var(--ink);background:rgba(255,255,255,.35);border:1px solid var(--rule);border-radius:3px;padding:8px 10px;width:100%;min-width:0;letter-spacing:0;text-transform:none}
+  .tools input:focus,.tools select:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
+  .chip{font:15px "EB Garamond",Georgia,serif;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer}
+  .chip:hover{border-color:var(--gold-soft)}
+  .chip[aria-pressed="true"]{background:rgba(147,112,30,.16);border-color:var(--gold-soft);color:var(--ink)}
+  .chip .n{font:12px var(--mono);margin-left:5px;opacity:.75}
+  .chip:focus-visible,.icard:focus-visible,.mbtn:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
+  .count{font-size:15px;color:var(--ink-soft);font-style:italic;margin:10px 0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .icard{display:flex;flex-direction:row;align-items:flex-start;gap:12px;text-align:left;font:inherit;color:var(--ink);background:rgba(255,255,255,.2);border:1px solid var(--rule);border-radius:3px;padding:12px 14px;cursor:pointer;min-width:0}
+  .icard:hover{border-color:#a88b5c;box-shadow:0 6px 18px rgba(42,33,24,.14)}
+  .icard .body{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1;align-self:stretch}
+  .icard .ico{flex:none;width:44px;height:44px;margin-top:1px;filter:drop-shadow(0 1px 1.5px rgba(42,33,24,.35))}
+  .icard .nm{font:500 16px/1.25 Cinzel,serif;color:var(--item);overflow-wrap:anywhere}
+  .icard .meta{font-size:14px;color:var(--ink-soft);line-height:1.35;margin:0}
+  .icard .kv{font:12.5px/1.5 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+  .icard .foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:4px}
+  .pill{display:inline-block;font:600 10.5px/1 Cinzel,serif;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;border-radius:2px;padding:4px 7px 3px;white-space:nowrap}
+  .v-keep,.v-equipped,.v-upgrade{color:var(--keep)} .v-bazaar,.v-tradeskill{color:var(--bazaar)} .v-trash{color:var(--trash)} .v-vendor-trash{color:var(--muted)} .v-undecided{color:var(--muted);border-style:dashed}
+  .coins{font:12.5px var(--mono);color:var(--ink-soft);white-space:nowrap}
+  .more{display:flex;justify-content:center;margin-top:20px}
+  .mbtn{font:600 12px/1 Cinzel,serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:rgba(255,255,255,.3);border:1px solid var(--rule);border-radius:3px;padding:11px 18px;cursor:pointer}
+  .mbtn:hover{border-color:var(--gold-soft)}
+  .state{padding:40px 10px;text-align:center;color:var(--ink-soft);font-style:italic}
+  dialog{margin:auto;border:1px solid #b89b6a;border-radius:3px;padding:0;width:min(860px,calc(100vw - 24px));max-height:calc(100vh - 32px);color:var(--ink);background:linear-gradient(160deg,var(--parch),var(--parch-2));box-shadow:0 24px 70px rgba(0,0,0,.6)}
+  dialog::backdrop{background:rgba(5,8,12,.7)}
+  .dhead{position:sticky;top:0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:22px 26px 14px;background:linear-gradient(160deg,var(--parch),var(--parch-2));border-bottom:1px solid var(--rule)}
+  .dhead .ttl{display:flex;align-items:center;gap:14px;min-width:0}
+  .dhead .dico{flex:none;width:52px;height:52px;filter:drop-shadow(0 1px 2px rgba(42,33,24,.4))}
+  .top2{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:start}
+  .top2>div{display:grid;gap:20px;min-width:0}
+  figure.shot{margin:0;max-width:min(100%,420px)}
+  figure.shot img{display:block;max-width:100%;height:auto;border:1px solid #5a4a36;border-radius:3px;box-shadow:0 8px 22px rgba(42,33,24,.35);background:#141a2c}
+  figure.shot figcaption{font-size:13px;font-style:italic;color:var(--ink-soft);margin-top:6px;text-align:center}
+  .dhead h2{font:600 clamp(20px,3vw,27px)/1.2 Cinzel,serif;color:var(--item);margin:0;text-wrap:balance}
+  .dhead .meta{color:var(--ink-soft);font-size:15px;margin-top:4px}
+  .close{flex:none;font:14px "EB Garamond",serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:3px;padding:5px 12px;cursor:pointer}
+  .dbody{padding:18px 26px 26px;display:grid;gap:20px}
+  .dbody h3{font:600 11px/1 Cinzel,serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
+  .flags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .flags .f{font-size:14px;border:1px solid var(--rule);border-radius:2px;padding:1px 8px;color:var(--ink-soft)}
+  dl.istats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0 22px;margin:0}
+  dl.istats div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px dotted var(--rule);padding:5px 0;min-width:0;background:none}
+  dl.istats div.wide{grid-column:1/-1;justify-content:flex-start}
+  dl.istats dt{color:var(--ink-soft);font-size:15px;flex:none} dl.istats dd{margin:0;font:500 13.5px/1.45 var(--mono);text-align:right;min-width:0;overflow-wrap:anywhere}
+  dl.istats div.wide dd{text-align:left}
+  .dbody p,.dbody ul{margin:0;max-width:68ch;font-size:16px}
+  .dbody ul{padding-left:18px}
+  .dbody a{color:#8a5a1f}
+  .sm{font-size:14px!important;color:var(--ink-soft)}
+  .legend{font-size:14px;color:var(--on-night-soft);max-width:70ch;margin:18px auto 0;text-align:center}
+  @media (max-width:760px){
+    .tools{grid-template-columns:1fr 1fr}.tools label:first-child{grid-column:1/-1}
+    .cat{padding:22px 16px 24px}
+    .dhead,.dbody{padding-left:16px;padding-right:16px}
+    .top2{grid-template-columns:1fr}figure.shot{justify-self:center}
+  }
+  @media (prefers-reduced-motion:no-preference){.icard{transition:border-color .15s,box-shadow .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="../">Xandra<span>·</span>Cat</a>
+    <nav><a href="../atlas/index.html">The Atlas</a><a href="../ledger/">Bazaar Prices</a><a href="./" aria-current="page">Item Catalogue</a><a href="../download.html">Make your own</a></nav>
+  </header>
+
+  <section class="hero small">
+    <div class="kicker">Frostreaver · everything we've picked up</div>
+    <h1>Item Catalogue</h1>
+    <p class="lede">Every item that has passed through our bags, with its stats, who can use it, where it drops, what it crafts into, what a merchant pays, and what we decided to do with it.</p>
+  </section>
+
+  <section class="sheet cat" aria-label="Items">
+    <div class="tools">
+      <label for="q">Search<input id="q" type="search" placeholder="Name, stat, zone, mob, recipe…" autocomplete="off"></label>
+      <label for="fclass">Class<select id="fclass"><option value="">Any class</option></select></label>
+      <label for="fslot">Slot<select id="fslot"><option value="">Any slot</option></select></label>
+      <label for="sort">Sort<select id="sort"><option value="name">Name A–Z</option><option value="value">Vendor value</option><option value="ac">AC</option></select></label>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by our call"></div>
+    <div class="count" id="count">Opening the catalogue…</div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <div class="more" id="more"></div>
+  </section>
+
+  <p class="legend"><b>Our call:</b> Keep is worth holding on to, Equipped is on one of our characters, Bazaar sells well to other players, Tradeskill is crafting stock, Vendor trash goes to a merchant, Trash isn't worth the bag space, and Undecided hasn't been judged yet. Stats and drop sources come from <a href="https://everquest.allakhazam.com/" style="color:var(--on-night)">Allakhazam</a>; vendor values are base prices before Charisma and faction.</p>
+  <p class="updated" id="updated"></p>
+  <footer><p>EverQuest is a trademark of Daybreak Game Company; this is a fan project with no connection to Daybreak.</p></footer>
+</div>
+
+<dialog id="dlg" aria-labelledby="dtitle">
+  <div class="dhead"><div class="ttl"><img class="dico" id="dicon" alt="" hidden><div><h2 id="dtitle"></h2><div class="meta" id="dmeta"></div></div></div><button class="close" type="button" id="dclose">Close</button></div>
+  <div class="dbody" id="dbody"></div>
+</dialog>
+
+<script>
+(function () {
+  var ORDER = ['Keep', 'Equipped', 'Upgrade', 'Bazaar', 'Tradeskill', 'Vendor trash', 'Trash', 'Undecided'];
+  var PAGE = 60, shown = PAGE, items = [], byId = {}, priced = {}, verdict = '';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function vclass(v) { return 'pill v-' + String(v).toLowerCase().replace(/[^a-z]+/g, '-'); }
+  function coins(c) {
+    if (!c) return '';
+    var pp = Math.floor(c / 1000), gp = Math.floor(c % 1000 / 100), sp = Math.floor(c % 100 / 10), cp = c % 10, out = [];
+    if (pp) out.push(pp.toLocaleString('en-US') + 'pp'); if (gp) out.push(gp + 'gp'); if (sp) out.push(sp + 'sp'); if (cp) out.push(cp + 'cp');
+    return out.join(' ');
+  }
+  function acOf(it) { var s = (it.st || []).filter(function (p) { return p[0] === 'AC'; })[0]; return s ? parseFloat(s[1]) || 0 : 0; }
+  function hay(it) { return (it._h || (it._h = JSON.stringify([it.n, it.t, it.sl, it.cl, it.sk, it.ex, it.fl, it.st, it.src, it.ts, it.au]).toLowerCase())); }
+
+  Promise.all([
+    fetch('data.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+    fetch('../ledger/data.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : { items: {} }; }).catch(function () { return { items: {} }; })
+  ]).then(function (res) {
+    items = res[0].items || []; items.forEach(function (it) { if (!it.vd) it.vd = 'Undecided'; byId[it.id] = it; });
+    Object.keys(res[1].items || {}).forEach(function (n) { priced[n.toLowerCase()] = n; });
+    if (res[0].updated) {
+      var u = new Date(res[0].updated);
+      $('updated').textContent = 'Last updated ' + u.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' }) + '.';
+    }
+    controls(); render();
+    var want = decodeURIComponent((location.hash || '').slice(1)); if (byId[want]) open(want);
+    window.addEventListener('hashchange', function () { var w = decodeURIComponent(location.hash.slice(1)); if (byId[w]) open(w); });
+  }).catch(function () { $('count').textContent = 'The catalogue could not be loaded. Try again in a minute.'; });
+
+  function controls() {
+    var cls = {}, slots = {}, counts = {};
+    items.forEach(function (it) {
+      (it.cl || []).forEach(function (c) { if (c !== 'ALL') cls[c] = 1; });
+      (it.sl || []).forEach(function (s) { slots[s] = 1; });
+      if (it.vd) counts[it.vd] = (counts[it.vd] || 0) + 1;
+    });
+    Object.keys(cls).sort().forEach(function (c) { $('fclass').insertAdjacentHTML('beforeend', '<option>' + esc(c) + '</option>'); });
+    Object.keys(slots).sort().forEach(function (s) { $('fslot').insertAdjacentHTML('beforeend', '<option>' + esc(s) + '</option>'); });
+    var html = '<button type="button" class="chip" data-v="" aria-pressed="true">All<span class="n">' + items.length + '</span></button>';
+    ORDER.forEach(function (v) { if (counts[v]) html += '<button type="button" class="chip" data-v="' + esc(v) + '" aria-pressed="false">' + esc(v) + '<span class="n">' + counts[v] + '</span></button>'; });
+    $('chips').innerHTML = html;
+  }
+  $('chips').addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return;
+    verdict = b.getAttribute('data-v') === verdict ? '' : b.getAttribute('data-v');
+    document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c.getAttribute('data-v') === verdict)); });
+    shown = PAGE; render();
+  });
+  ['q', 'fclass', 'fslot', 'sort'].forEach(function (id) { $(id).addEventListener('input', function () { shown = PAGE; render(); }); });
+
+  function filtered() {
+    var q = $('q').value.trim().toLowerCase().split(/\s+/).filter(Boolean), fc = $('fclass').value, fs = $('fslot').value, so = $('sort').value;
+    var out = items.filter(function (it) {
+      if (verdict && it.vd !== verdict) return false;
+      if (fc && (it.cl || []).indexOf(fc) < 0 && (it.cl || []).indexOf('ALL') < 0) return false;
+      if (fs && (it.sl || []).indexOf(fs) < 0) return false;
+      var h = hay(it); return q.every(function (w) { return h.indexOf(w) >= 0; });
+    });
+    if (so === 'value') out.sort(function (a, b) { return (b.vc || 0) - (a.vc || 0) || a.n.localeCompare(b.n); });
+    else if (so === 'ac') out.sort(function (a, b) { return acOf(b) - acOf(a) || a.n.localeCompare(b.n); });
+    else out.sort(function (a, b) { return a.n.localeCompare(b.n); });
+    return out;
+  }
+  function render() {
+    var list = filtered();
+    $('count').textContent = list.length === items.length ? items.length.toLocaleString('en-US') + ' items' : list.length.toLocaleString('en-US') + ' of ' + items.length.toLocaleString('en-US') + ' items';
+    $('grid').innerHTML = list.slice(0, shown).map(function (it) {
+      var meta = [(it.sl || []).join(' / ') || it.t, it.sk, (it.cl || []).join(' ')].filter(Boolean).join(' · ');
+      var kv = (it.hl || []).map(function (p) { return esc(p[0]) + ' ' + esc(p[1]); }).join('  ');
+      return '<button type="button" class="icard" data-id="' + esc(it.id) + '">' + (it.ic ? '<img class="ico" src="img/' + esc(it.ic) + '" alt="" loading="lazy" width="44" height="44">' : '') + '<span class="body"><span class="nm">' + esc(it.n) + '</span>' +
+        (meta ? '<span class="meta">' + esc(meta) + '</span>' : '') + (kv ? '<span class="kv">' + kv + '</span>' : '') +
+        '<span class="foot">' + (it.vd ? '<span class="' + vclass(it.vd) + '">' + esc(it.vd) + '</span>' : '<span></span>') +
+        '<span class="coins">' + coins(it.vc) + '</span></span></span></button>';
+    }).join('') || '<p class="state">Nothing matches. Clear the search or a filter to see more.</p>';
+    var left = list.length - shown;
+    $('more').innerHTML = left > 0 ? '<button type="button" class="mbtn" id="morebtn">Show ' + Math.min(PAGE, left) + ' more (' + left + ' left)</button>' : '';
+    if (left > 0) $('morebtn').onclick = function () { shown += PAGE; render(); };
+  }
+  $('grid').addEventListener('click', function (e) { var c = e.target.closest('.icard'); if (c) open(c.getAttribute('data-id'), true); });
+
+  function sec(title, html) { return '<section><h3>' + title + '</h3>' + html + '</section>'; }
+  function open(id, push) {
+    var it = byId[id]; if (!it) return;
+    if (push) history.replaceState(null, '', '#' + encodeURIComponent(id));
+    $('dtitle').textContent = it.n;
+    var di = $('dicon'); if (it.ic) { di.src = 'img/' + it.ic; di.hidden = false; } else { di.removeAttribute('src'); di.hidden = true; }
+    $('dmeta').textContent = [it.cl && 'Class: ' + it.cl.join(' '), it.ra && 'Race: ' + it.ra, (it.sl || []).join(' / ') || it.t, it.ex].filter(Boolean).join(' · ');
+    var h = '<div class="flags">' + (it.vd ? '<span class="' + vclass(it.vd) + '">Our call: ' + esc(it.vd) + '</span>' : '') +
+      (it.fl || []).map(function (f) { return '<span class="f">' + esc(f) + '</span>'; }).join('') + '</div>';
+    if (it.miss) h += '<p class="sm">Not found on Allakhazam yet, so its stats are missing.</p>';
+    if ((it.st || []).length) h += sec('Stats', '<dl class="istats">' + it.st.map(function (p) { return '<div' + (String(p[1]).length > 16 ? ' class="wide"' : '') + '><dt>' + esc(p[0]) + '</dt><dd>' + esc(p[1]) + '</dd></div>'; }).join('') + '</dl>');
+    if (it.iw) h = '<div class="top2"><figure class="shot"><img src="img/' + esc(it.iw) + '" alt="In-game item window for ' + esc(it.n) + '"><figcaption>As it appears in game</figcaption></figure><div>' + h + '</div></div>';
+    if ((it.au || []).length) h += sec('Augment slots', '<ul>' + it.au.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>');
+    if (it.src) h += sec('Where it comes from', '<p>' + esc(it.src.replace(/[\s\-:]+$/, '')) + (it.src.length >= 130 ? '…</p><p class="sm">Partial list. The full drop table is on Allakhazam.</p>' : '</p>'));
+    if ((it.ts || []).length) h += sec('Tradeskill uses', '<ul>' + it.ts.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>');
+    if (it.vc) h += sec('Sells to a merchant for', '<p>' + coins(it.vc) + (it.vok ? ' <span class="sm">(checked in game)</span>' : ' <span class="sm">(base value; Charisma and faction move it)</span>') + '</p>');
+    var p = priced[it.n.toLowerCase()], links = [];
+    if (p) links.push('<a href="../ledger/#' + encodeURIComponent(p) + '">Bazaar price history</a>');
+    (it.lk || []).forEach(function (l) { links.push('<a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label) + '</a>'); });
+    if (links.length) h += sec('Look it up', '<p>' + links.join(' · ') + '</p>');
+    $('dbody').innerHTML = h;
+    var d = $('dlg'); if (!d.open) d.showModal(); d.scrollTop = 0;
+  }
+  $('dclose').onclick = function () { $('dlg').close(); };
+  $('dlg').addEventListener('click', function (e) { if (e.target === $('dlg')) $('dlg').close(); });
+  $('dlg').addEventListener('close', function () { history.replaceState(null, '', location.pathname); });
+})();
+</script>
+</body>
+</html>

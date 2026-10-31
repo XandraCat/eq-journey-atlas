@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XandraCat · EverQuest on Frostreaver</title>
+<meta name="description" content="The Journey Atlas, Bazaar Prices and Item Catalogue: hand-inked charts of every EverQuest zone we have walked on Frostreaver, day-by-day Bazaar prices, and every item through our bags.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23e9dcc0' stroke='%237a2e1e' stroke-width='2'/%3E%3Cpolygon points='16,4 18.5,14 16,16 13.5,14' fill='%237a2e1e'/%3E%3Cpolygon points='16,28 18,16 16,15 14,16' fill='%232a2118' opacity='.5'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="./">Xandra<span>·</span>Cat</a>
+    <nav><a href="atlas/index.html">The Atlas</a><a href="ledger/">Bazaar Prices</a><a href="catalogue/">Item Catalogue</a><a href="download.html">Make your own</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">EverQuest · Frostreaver</div>
+    <h1>XandraCat</h1>
+    <svg class="flourish" viewBox="0 0 220 14" aria-hidden="true"><path d="M0 7 H92 M128 7 H220" stroke="currentColor" stroke-width=".8"/><path d="M110 1 L116 7 L110 13 L104 7 Z" fill="none" stroke="currentColor"/><circle cx="98" cy="7" r="1.6" fill="currentColor"/><circle cx="122" cy="7" r="1.6" fill="currentColor"/></svg>
+    <p class="lede">Kept on the <em>Frostreaver</em> server: every zone our party has walked, charted from nothing but the game's own log; what the Bazaar has been asking, day by day; and every item that has passed through our bags.</p>
+  </section>
+
+  <section class="doors">
+    <a class="door sheet" href="atlas/index.html">
+      <span class="kick">The Journey Atlas</span>
+      <span class="title">Every zone we've walked</span>
+      <span class="blurb">Hand-inked charts drawn from <em>/loc</em>: the route walked, kills, named foes slain, deaths and levels, each pinned where it happened.</span>
+      <span class="nums" id="atlas-nums">
+        <span><b data-k="zones">·</b>zones</span><span><b data-k="hours">·</b>hours</span><span><b data-k="kills">·</b>kills</span><span><b data-k="named">·</b>named</span>
+      </span>
+      <span class="go">Open the atlas →</span>
+    </a>
+    <a class="door sheet" href="ledger/">
+      <span class="kick">Bazaar Prices</span>
+      <span class="title">What the market is asking</span>
+      <span class="blurb">Floor, median, highest ask and top bid for every item we've swept in the Bazaar and Barter windows, charted over time.</span>
+      <span class="nums" id="ledger-nums">
+        <span><b data-k="items">·</b>items</span><span><b data-k="sweeps">·</b>sweeps</span><span><b data-k="krono">·</b>Krono, lately</span>
+      </span>
+      <span class="go">Browse prices →</span>
+    </a>
+    <a class="door sheet" href="catalogue/">
+      <span class="kick">Item Catalogue</span>
+      <span class="title">Everything we've picked up</span>
+      <span class="blurb">Stats, classes, drop sources and tradeskill uses for every item through our bags, with our call on what each one is worth keeping.</span>
+      <span class="nums" id="cat-nums">
+        <span><b data-k="items">·</b>items</span><span><b data-k="keep">·</b>worth keeping</span>
+      </span>
+      <span class="go">Browse items →</span>
+    </a>
+  </section>
+  <p class="updated" id="updated"></p>
+
+  <section class="sheet">
+    <h2>Lately charted <a href="atlas/index.html">Every chart →</a></h2>
+    <div class="cards" id="recent"><p class="empty">The latest charts appear here.</p></div>
+  </section>
+
+  <section class="sheet">
+    <h2>What the atlas keeps <a href="download.html">Make your own →</a></h2>
+    <div class="three">
+      <div>
+        <svg class="glyph" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8 L16 4 L28 8 L40 4 V36 L28 40 L16 36 L4 40 Z"/><path d="M16 4 V36 M28 8 V40"/><path d="M8 30 C12 24 18 26 22 20 S32 14 36 12" stroke-dasharray="3 3" stroke="#7a2e1e"/></svg>
+        <h3>A chart for every zone</h3>
+        <p>The route walked, fading with age; kills, named, deaths and levels pinned where they happened; journal notes in the margin. Drag, zoom, and click any mark to read it.</p>
+      </div>
+      <div>
+        <svg class="glyph" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="34" height="26" rx="2"/><path d="M5 13 H39"/><path d="M10 28 C15 22 20 25 24 19 S32 16 34 17" stroke="#7a2e1e"/><path d="M16 39 H28 M22 33 V39"/></svg>
+        <h3>The same route in game</h3>
+        <p>It writes your trail onto EverQuest's own map window as a separate layer, switched on and off with one checkbox, without touching the map files you already have.</p>
+      </div>
+      <div>
+        <svg class="glyph" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6 H32 A4 4 0 0 1 36 10 V38 H12 A4 4 0 0 1 8 34 Z"/><path d="M8 34 A4 4 0 0 1 12 30 H36"/><polygon points="22,11 23.6,15.6 28.4,15.6 24.5,18.4 26,23 22,20.2 18,23 19.5,18.4 15.6,15.6 20.4,15.6" stroke="#7a2e1e"/></svg>
+        <h3>A chronicle, written for you</h3>
+        <p>Sessions tells each night's journey day by day. The Bestiary lists every named slain and by whom, and the Fallen remembers the deaths.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Zone outlines from <a href="https://www.eqmaps.info/">Brewall's EverQuest maps</a>. EverQuest is a trademark of Daybreak Game Company; this is a fan project with no connection to Daybreak.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var fmt = function(n){ return Number(n).toLocaleString('en-US'); };
+  var stamp = [];
+  function showUpdated(){
+    var t = stamp.filter(Boolean).sort().pop(); if (!t) return;
+    var d = new Date(t);
+    document.getElementById('updated').textContent = 'Last updated ' + d.toLocaleDateString(undefined, {weekday:'long', day:'numeric', month:'long'}) + ', ' +
+      d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'}) + '.';
+  }
+  function fill(id, vals){
+    document.querySelectorAll('#' + id + ' b[data-k]').forEach(function(b){ var v = vals[b.dataset.k]; b.textContent = v == null ? '—' : v; });
+  }
+  fetch('atlas/stats.json', {cache:'no-cache'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(s){
+    fill('atlas-nums', {zones: fmt(s.zones), hours: fmt(s.hours), kills: fmt(s.kills), named: fmt(s.named)});
+    stamp.push(s.updated); showUpdated();
+    var box = document.getElementById('recent');
+    if (s.recent && s.recent.length) {
+      box.innerHTML = '';
+      s.recent.forEach(function(z){
+        var a = document.createElement('a'); a.className = 'card'; a.href = z.href;
+        a.innerHTML = z.thumb;
+        var n = document.createElement('span'); n.className = 'name'; n.textContent = z.zone; a.appendChild(n);
+        var m = document.createElement('span'); m.className = 'meta';
+        m.textContent = 'Last walked ' + new Date(z.last + 'T12:00:00').toLocaleDateString(undefined, {day:'numeric', month:'long'});
+        a.appendChild(m); box.appendChild(a);
+      });
+    }
+  }).catch(function(){ fill('atlas-nums', {}); });
+  fetch('ledger/data.json', {cache:'no-cache'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+    var names = Object.keys(d.items || {}), sweeps = 0;
+    names.forEach(function(n){ sweeps += (d.items[n].sell || []).length + (d.items[n].buy || []).length; });
+    var k = d.items && d.items.Krono && d.items.Krono.sell, last = k && k[k.length - 1];
+    var kp = last ? (last.median || last.floor) : null;
+    fill('ledger-nums', {items: fmt(names.length), sweeps: fmt(sweeps), krono: kp ? fmt(kp) + 'p' : null});
+    stamp.push(d.updated); showUpdated();
+  }).catch(function(){ fill('ledger-nums', {}); });
+  fetch('catalogue/data.json', {cache:'no-cache'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+    var it = d.items || [];
+    fill('cat-nums', {items: fmt(it.length), keep: fmt(it.filter(function(x){ return x.vd === 'Keep' || x.vd === 'Equipped'; }).length)});
+  }).catch(function(){ fill('cat-nums', {}); });
+})();
+</script>
+
+</body>
+</html>
