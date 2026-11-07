@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Make your own · The Journey Atlas</title>
+<meta name="description" content="A free tool that turns your EverQuest log into hand-inked charts of every zone you've walked, plus a route layer for the in-game map.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23e9dcc0' stroke='%237a2e1e' stroke-width='2'/%3E%3Cpolygon points='16,4 18.5,14 16,16 13.5,14' fill='%237a2e1e'/%3E%3Cpolygon points='16,28 18,16 16,15 14,16' fill='%232a2118' opacity='.5'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="./">Xandra<span>·</span>Cat</a>
+    <nav><a href="atlas/index.html">The Atlas</a><a href="ledger/">Bazaar Prices</a><a href="catalogue/">Item Catalogue</a><a href="download.html" aria-current="page">Make your own</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">A free tool for EverQuest players</div>
+    <h1>Chart Your Own</h1>
+    <svg class="flourish" viewBox="0 0 220 14" aria-hidden="true"><path d="M0 7 H92 M128 7 H220" stroke="currentColor" stroke-width=".8"/><path d="M110 1 L116 7 L110 13 L104 7 Z" fill="none" stroke="currentColor"/><circle cx="98" cy="7" r="1.6" fill="currentColor"/><circle cx="122" cy="7" r="1.6" fill="currentColor"/></svg>
+    <p class="lede">Chart your own travels. The atlas reads the log EverQuest already writes and draws every zone you've walked, in the same inked style as <a href="atlas/index.html" style="color:var(--on-night)">ours</a>. It doesn't touch the game, and nothing leaves your computer unless you choose to publish.</p>
+  </section>
+
+  <section class="sheet">
+    <h2>Download</h2>
+    <div class="dl">
+      <a class="btn solid" href="downloads/eq-journey-atlas.zip" download>Download the atlas (.zip)</a>
+      <span class="fine">Windows · needs Python 3.9 or newer · no other installs</span>
+    </div>
+    <p style="margin-top:14px">The full instructions are in <code>README.md</code> inside the zip. Here's the short version.</p>
+  </section>
+
+  <section class="sheet">
+    <h2>Getting started</h2>
+    <ol class="steps">
+      <li><div><h3>Install Python</h3>
+        <p>From <a href="https://www.python.org/downloads/">python.org</a>. On the first screen of the installer, tick <em>Add python.exe to PATH</em>.</p></div></li>
+      <li><div><h3>Have Brewall's maps</h3>
+        <p>The charts are drawn over <a href="https://www.eqmaps.info/">Brewall's maps</a>, so they need to be in your EverQuest <code>maps\Brewall</code> folder. Most players have them already.</p></div></li>
+      <li><div><h3>Unzip, and name your party</h3>
+        <p>Unzip the atlas anywhere. If you play more than one character together, open <code>config.json</code> in Notepad and list them:</p>
+        <pre>"team": ["Mychar", "Myboxone", "Myboxtwo"],</pre>
+        <p>Playing solo? Skip this. The atlas finds your EverQuest folder, server and character by itself.</p></div></li>
+      <li><div><h3>Log on, and /loc often</h3>
+        <p>In game, type <code>/log on</code> once per character. Then use <code>/loc</code> as you travel. It's the only position the log records, so the more often you use it, the finer your routes. Most people bind it to a key they press constantly.</p></div></li>
+      <li><div><h3>Run it</h3>
+        <p>Double-click <code>atlas_live.bat</code> before you play and leave the window open: the atlas updates itself every five minutes. Then open <code>journey\index.html</code> in your browser. In game, your route is the third layer in the map window, and appears after your next zone change.</p></div></li>
+    </ol>
+    <p class="note">Want your atlas on the web like this one? It can publish itself to a free GitHub Pages site while you play, showing other players only as "the raid". See <em>Publishing your atlas</em> in the README.</p>
+  </section>
+
+  <section class="sheet">
+    <h2>What you get</h2>
+    <div class="three">
+      <div><h3>Zone charts</h3><p>Your route, fading with age; kills clustered where you camped; named foes starred; deaths and levels marked; screenshots pinned where you took them.</p></div>
+      <div><h3>An in-game layer</h3><p>The same route on EverQuest's map window, as its own checkbox. Add your own pins for vendors, camps and quest givers.</p></div>
+      <div><h3>The chronicle</h3><p>An index of every zone, a day-by-day Sessions page with your journal notes, a Bestiary of named slain, and the Fallen.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Zone outlines come from <a href="https://www.eqmaps.info/">Brewall's EverQuest maps</a>, read from your own install; they are not included in the download. EverQuest is a trademark of Daybreak Game Company; this is a fan project with no connection to Daybreak.</p>
+  </footer>
+</div>
+</body>
+</html>
